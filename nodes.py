@@ -136,7 +136,7 @@ class SDXL_ModelLoader:
         download(model, name="checkpoints")
         pipeline = StableDiffusionXLPipeline.from_pretrained(
             model,
-            torch_dtype=torch.float16,
+            # torch_dtype=torch.float16,
             variant=variant,
             use_safetensors=use_safetensors,
             scheduler=scheduler).to(device)
@@ -171,7 +171,7 @@ class ModelLoader:
         download(model, name="checkpoint")
         pipeline = StableDiffusionPipeline.from_pretrained(
             model,
-            torch_dtype=torch.float16,
+            # torch_dtype=torch.float16,
             variant=variant,
             use_safetensors=use_safetensors,
             scheduler=scheduler).to(device)
@@ -190,10 +190,10 @@ class HFControlnet_ModelLoader:
                     ],
                     {"default": "diffusers/controlnet-depth-sdxl-1.0"}),
                 "vae": ("VAE",),
-                "optional": {
-                    "variant": ("STRING", {"default": "fp16"}),
-                    "use_safetensors": ("BOOLEAN", {"default": False})
-                }
+            },
+            "optional": {
+                "variant": ("STRING", {"default": "fp16"}),
+                "use_safetensors": ("BOOLEAN", {"default": False})
             }
         }
 
@@ -220,10 +220,11 @@ class HFVAE_ModelLoader:
         return {
             "required": {
                 "vae": (["madebyollin/sdxl-vae-fp16-fix"], {"default": "madebyollin/sdxl-vae-fp16-fix"}),
-                "optional": {
-                    "variant": ("STRING", {"default": "fp16"}),
-                    "use_safetensors": ("BOOLEAN", {"default": False})
-                }}
+            },
+            "optional": {
+                "variant": ("STRING", {"default": "fp16"}),
+                "use_safetensors": ("BOOLEAN", {"default": False})
+            }
         }
 
     RETURN_TYPES = ("VAE",)
